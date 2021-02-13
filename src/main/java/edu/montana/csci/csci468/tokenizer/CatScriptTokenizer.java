@@ -108,10 +108,10 @@ public class CatScriptTokenizer {
                 while (!(src.charAt(postion - 1) == '*' && peek() == '/') && !tokenizationEnd()) {
                     takeChar();
                 }
-                matchAndConsume('/');
+                takeChar();
             }
             else {
-                tokenList.addToken(SLASH, "-", start, postion, line, lineOffset);
+                tokenList.addToken(SLASH, "/", start, postion, line, lineOffset);
             }
         } else if(matchAndConsume('=')) {
             if (matchAndConsume('=')) {
