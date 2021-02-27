@@ -161,10 +161,15 @@ public class CatScriptParser {
             BooleanLiteralExpression booleanExpression = new BooleanLiteralExpression(booleanToken.getStringValue().equals("true"));
             booleanExpression.setToken(booleanToken);
             return booleanExpression;
-//        } else if (tokens.match(NULL)){
-//            Token nullToken = tokens.consumeToken();
-//            NullLiteralExpression nullExpression = new NullLiteralExpression();
-//            return null;
+        } else if (tokens.match(LEFT_PAREN, RIGHT_PAREN)) {
+            Token parenToken = tokens.consumeToken();
+            Expression rhs = parseExpression();
+            ParenthesizedExpression parenExpression = new ParenthesizedExpression(rhs);
+            parenExpression.setToken(parenToken);
+            return parenExpression;
+        } else if (tokens.match(NULL)){
+            NullLiteralExpression nullExpression = new NullLiteralExpression();
+            return nullExpression;
         } else {
             SyntaxErrorExpression syntaxErrorExpression = new SyntaxErrorExpression(tokens.consumeToken());
             return syntaxErrorExpression;
