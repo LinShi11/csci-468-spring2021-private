@@ -99,6 +99,10 @@ public class FunctionDefinitionStatement extends Statement {
 
     private boolean validateReturnCoverage(List<Statement> statements) {
         // TODO - implement return coverage checking
+        for (Statement statement : statements) {
+            return !statement.hasError(ErrorType.MISSING_RETURN_STATEMENT);
+        }
+
         return true;
     }
 
@@ -146,7 +150,7 @@ public class FunctionDefinitionStatement extends Statement {
     //==============================================================
     @Override
     public void execute(CatscriptRuntime runtime) {
-        super.execute(runtime);
+//        super.execute(runtime);
     }
 
     @Override
