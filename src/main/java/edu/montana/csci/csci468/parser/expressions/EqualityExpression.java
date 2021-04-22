@@ -78,7 +78,12 @@ public class EqualityExpression extends Expression {
 
     @Override
     public void compile(ByteCodeGenerator code) {
-        super.compile(code);
+        boolean equal = equalCheck(leftHandSide, rightHandSide);
+        if(isEqual()){
+            code.pushConstantOntoStack(equal);
+        } else{
+            code.pushConstantOntoStack(!equal);
+        }
     }
 
 

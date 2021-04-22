@@ -86,7 +86,13 @@ public class UnaryExpression extends Expression {
 
     @Override
     public void compile(ByteCodeGenerator code) {
-        super.compile(code);
+        if(isMinus()){
+            int rhs = Integer.parseInt(rightHandSide.toString()) * -1;
+            code.pushConstantOntoStack(rhs);
+        } else {
+            boolean rhs = Boolean.parseBoolean(rightHandSide.toString());
+            code.pushConstantOntoStack(rhs);
+        }
     }
 
 

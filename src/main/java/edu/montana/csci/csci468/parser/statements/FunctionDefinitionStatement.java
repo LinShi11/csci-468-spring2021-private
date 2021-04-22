@@ -8,6 +8,7 @@ import edu.montana.csci.csci468.parser.ErrorType;
 import edu.montana.csci.csci468.parser.ParseError;
 import edu.montana.csci.csci468.parser.SymbolTable;
 import edu.montana.csci.csci468.parser.expressions.TypeLiteral;
+import org.objectweb.asm.Opcodes;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -99,11 +100,18 @@ public class FunctionDefinitionStatement extends Statement {
 
     private boolean validateReturnCoverage(List<Statement> statements) {
         // TODO - implement return coverage checking
-        for (Statement statement : statements) {
-            return !statement.hasError(ErrorType.MISSING_RETURN_STATEMENT);
+        if (!statements.isEmpty() && statements.get(statements.size() - 1) instanceof ReturnStatement) {
+            return true;
         }
-
-        return true;
+        for (Statement statement : statements) {
+            if (statement instanceof IfStatement) {
+                IfStatement ifStatement = (IfStatement) statement;
+                return validateReturnCoverage(ifStatement.getTrueStatements()) &&
+                        !ifStatement.getElseStatements().isEmpty() &&
+                        validateReturnCoverage(ifStatement.getElseStatements());
+            }
+        }
+        return false;
     }
 
     public Object invoke(CatscriptRuntime runtime, List<Object> args) {
@@ -160,6 +168,17 @@ public class FunctionDefinitionStatement extends Statement {
 
     @Override
     public void compile(ByteCodeGenerator code) {
-        super.compile(code);
+        code.pushMethod(Opcodes.ACC_PUBLIC, getName(), getDescriptor());
+        code.addVarInstruction(Opcodes.ALOAD, 0);
+        for (int i = 0; i < argumentTypes.size(); i++) {
+            code.createLocalStorageSlotFor(argumentNames.get(i));
+        }
+        body.forEach(statement ->
+                statement.compile(code)
+        );
+        if (getType() == CatscriptType.VOID) {
+            code.addInstruction(Opcodes.RETURN);
+        }
+        code.popMethod();
     }
 }

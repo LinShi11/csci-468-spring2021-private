@@ -91,12 +91,35 @@ public class AdditiveExpression extends Expression {
 
     @Override
     public void compile(ByteCodeGenerator code) {
-        getLeftHandSide().compile(code);
-        getRightHandSide().compile(code);
-        if (isAdd()) {
-            code.addInstruction(Opcodes.IADD);
-        } else {
-            code.addInstruction(Opcodes.ISUB);
+        if(getType().equals(CatscriptType.INT)) {
+            getLeftHandSide().compile(code);
+            getRightHandSide().compile(code);
+            if (isAdd()) {
+                code.addInstruction(Opcodes.IADD);
+            } else {
+                code.addInstruction(Opcodes.ISUB);
+            }
+        } else{
+            if(leftHandSide.getType() == CatscriptType.INT){
+                leftHandSide.compile(code);
+                box(code,CatscriptType.INT);
+                code.addMethodInstruction(Opcodes.INVOKESTATIC, ByteCodeGenerator.internalNameFor(String.class), "valueOf", "(Ljava/lang/Object;)Ljava/lang/String;");
+            } else if(leftHandSide.getType() == CatscriptType.NULL){
+                code.pushConstantOntoStack("null");
+            } else{
+                leftHandSide.compile(code);
+            }
+
+            if(rightHandSide.getType() == CatscriptType.INT){
+                rightHandSide.compile(code);
+                box(code, CatscriptType.INT);
+                code.addMethodInstruction(Opcodes.INVOKESTATIC, ByteCodeGenerator.internalNameFor(String.class),"valueOf", "(Ljava/lang/Object;)Ljava/lang/String;");
+            } else if(rightHandSide.getType() == CatscriptType.NULL){
+                code.pushConstantOntoStack("null");
+            } else{
+                rightHandSide.compile(code);
+            }
+            code.addMethodInstruction(Opcodes.INVOKEVIRTUAL, ByteCodeGenerator.internalNameFor(String.class), "concat", "(Ljava/lang/String;)Ljava/lang/String;");
         }
     }
 
