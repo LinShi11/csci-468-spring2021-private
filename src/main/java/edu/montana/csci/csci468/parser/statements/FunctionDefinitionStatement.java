@@ -99,7 +99,6 @@ public class FunctionDefinitionStatement extends Statement {
     }
 
     private boolean validateReturnCoverage(List<Statement> statements) {
-        // TODO - implement return coverage checking
         if (!statements.isEmpty() && statements.get(statements.size() - 1) instanceof ReturnStatement) {
             return true;
         }
@@ -173,9 +172,9 @@ public class FunctionDefinitionStatement extends Statement {
         for (int i = 0; i < argumentTypes.size(); i++) {
             code.createLocalStorageSlotFor(argumentNames.get(i));
         }
-        body.forEach(statement ->
-                statement.compile(code)
-        );
+        for(Statement statement: body){
+            statement.compile(code);
+        }
         if (getType() == CatscriptType.VOID) {
             code.addInstruction(Opcodes.RETURN);
         }

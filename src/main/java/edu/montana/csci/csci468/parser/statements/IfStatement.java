@@ -91,16 +91,16 @@ public class IfStatement extends Statement {
     @Override
     public void compile(ByteCodeGenerator code) {
         expression.compile(code);
-        Label el = new Label();
+        Label elseStatement = new Label();
         Label end = new Label();
-        code.addJumpInstruction(Opcodes.IFEQ, el);
+        code.addJumpInstruction(Opcodes.IFEQ, elseStatement);
         for(Statement trueStatement: trueStatements){
             trueStatement.compile(code);
         }
         code.addJumpInstruction(Opcodes.GOTO, end);
-        code.addLabel(el);
-        for(Statement elseStatement: elseStatements){
-            elseStatement.compile(code);
+        code.addLabel(elseStatement);
+        for(Statement statement: elseStatements){
+            statement.compile(code);
         }
         code.addLabel(end);
     }

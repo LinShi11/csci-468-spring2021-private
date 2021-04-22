@@ -95,26 +95,26 @@ public class ComparisonExpression extends Expression {
 
     @Override
     public void compile(ByteCodeGenerator code) {
-        Label then = new Label();
+        Label next = new Label();
         Label end = new Label();
         leftHandSide.compile(code);
         rightHandSide.compile(code);
         if (isGreater()) {
-            code.addJumpInstruction(Opcodes.IF_ICMPLE, then);
+            code.addJumpInstruction(Opcodes.IF_ICMPLE, next);
         }
         if (isGreaterThanOrEqual()) {
-            code.addJumpInstruction(Opcodes.IF_ICMPLT, then);
+            code.addJumpInstruction(Opcodes.IF_ICMPLT, next);
         }
         if (isLessThan()) {
-            code.addJumpInstruction(Opcodes.IF_ICMPGE, then);
+            code.addJumpInstruction(Opcodes.IF_ICMPGE, next);
         }
         if(isLessThanOrEqual()){
-            code.addJumpInstruction(Opcodes.IF_ICMPGT, then);
+            code.addJumpInstruction(Opcodes.IF_ICMPGT, next);
         }
 
         code.pushConstantOntoStack(1);
         code.addJumpInstruction(Opcodes.GOTO, end);
-        code.addLabel(then);
+        code.addLabel(next);
         code.pushConstantOntoStack(0);
         code.addLabel(end);
     }

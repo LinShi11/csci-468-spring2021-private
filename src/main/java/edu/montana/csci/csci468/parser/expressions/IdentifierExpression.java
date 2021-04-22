@@ -51,14 +51,8 @@ public class IdentifierExpression extends Expression {
 
     @Override
     public void compile(ByteCodeGenerator code) {
-        Integer integer = code.resolveLocalStorageSlotFor(getName());
-        if (integer != null) {
-            if (getType() == CatscriptType.INT || getType() == CatscriptType.BOOLEAN) {
-                code.addVarInstruction(Opcodes.ILOAD, integer);
-            } else {
-                code.addVarInstruction(Opcodes.ALOAD, integer);
-            }
-        } else {
+        Integer check = code.resolveLocalStorageSlotFor(getName());
+        if (check == null){
             code.addVarInstruction(Opcodes.ALOAD, 0);
             if (getType() == CatscriptType.INT) {
                 code.addFieldInstruction(Opcodes.GETFIELD, getName(), "I", code.getProgramInternalName());
@@ -68,6 +62,12 @@ public class IdentifierExpression extends Expression {
                 code.addFieldInstruction(Opcodes.GETFIELD, getName(), "Ljava/lang/Object;", code.getProgramInternalName());
             } else {
                 code.addMethodInstruction(Opcodes.GETFIELD, getName(), "L" + ByteCodeGenerator.internalNameFor(getType().getJavaType()) + ";", code.getProgramInternalName());
+            }
+        } else{
+            if (getType() == CatscriptType.INT || getType() == CatscriptType.BOOLEAN) {
+                code.addVarInstruction(Opcodes.ILOAD, check);
+            } else {
+                code.addVarInstruction(Opcodes.ALOAD, check);
             }
         }
     }
