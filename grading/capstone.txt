@@ -1,4 +1,4 @@
 Errors:
 
 - Missing source zip
-- Missing Lin_Shi_portfolio.pdf
+- Missing lin_shi_portfolio.pdf
