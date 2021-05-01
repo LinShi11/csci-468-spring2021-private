@@ -1,6 +1,7 @@
 # Section 1: Program
 
-Please include a zip file of the final repository in this directory.
+See source.zip file in the same directory (/capstone/portfolio).
+<div style="page-break-after: always;"></div>
 
 # Section 2: Teamwork
 
