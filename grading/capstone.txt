@@ -1,0 +1,4 @@
+Errors:
+
+- Missing source zip
+- Missing lin_shi_portfolio.pdf
