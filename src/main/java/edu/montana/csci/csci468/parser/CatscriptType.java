@@ -1,6 +1,8 @@
 package edu.montana.csci.csci468.parser;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 public class CatscriptType {
@@ -31,9 +33,18 @@ public class CatscriptType {
         return false;
     }
 
-    // TODO memoize this call
+    static Map<CatscriptType, CatscriptType> CACHE = new HashMap<>();
     public static CatscriptType getListType(CatscriptType type) {
-        return new ListType(type);
+        CatscriptType previousMatch = CACHE.get(type);
+        if(previousMatch == null){
+            ListType listType = new ListType(type);
+            CACHE.put(type, listType);
+            return listType;
+        } else{
+            return previousMatch;
+        }
+//        ListType listType = new ListType(type);
+//        return listType;
     }
 
     @Override

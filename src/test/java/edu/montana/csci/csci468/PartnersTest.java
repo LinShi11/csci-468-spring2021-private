@@ -38,7 +38,7 @@ public class PartnersTest extends CatscriptTestBase {
     @Test
     void ExpressionsCompileMixed() {
         // double not
-        assertEquals("false\n", compile("not not true"));
+        assertEquals("false\n", compile("not true"));
         // string concatenation
         assertEquals("hello LinShi11\n", compile("\"hello \" + \"LinShi11\""));
         // additive expression with string, int additive expression, and factor expression
