@@ -5,7 +5,8 @@ See source.zip file in the same directory (/capstone/portfolio).
 # Section 2: Teamwork
 
 ### Overview:
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The project was completed in a groups of two and it has been a semester long task.
+<p>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The project was completed in a groups of two and it has been a semester long task.
 Throughout the semester, team member one was responsible to complete all the code and design the parse, 
 while team member two was responsible to write the tests for the program as well as write a documentation for the program.
 The tests were implemented using patch and was passed to the other individual by email. 
@@ -482,40 +483,72 @@ the possible errors associated with parsing statement. The CatScriptProgram is u
 ### Introduction:
 <p>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; During this course, one of the main designs to choose was whether to use hand-written recursive descent or a parser generator when completing the parser. There are many parser generator available, such as ANLR. It will take the language 
-specifications and outputs a parse tree. 
+specifications and outputs a parse tree. On the other hand, a handwritten parser is used for this course. The recurive descent algorithm or top-down parser is created for this course. In this section, the pros and the cons of the two methods will be talked about.
+Additionally, the choice of hand-written recursive deescent parser will also be discussed.
 </p>
 
-generator:
-good 
-- in theory, write less code
-- less infrastructure skeleton code to get going
-- good parser generator could be faster than hand-written ones
+### Parser Generator:
+<p>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; There exist many parser generators; however, most of them have the same pros and cons. In theory, parser generators are better when one wish to complete the parser as fast as they can. The parser generator has the APIs and built-ins
+that will make writing the code for the parser much quicker and easier. Additionally, a parser generator will require less infrastructure to get going. Which could be very beneficial to someone new and need to complete the parser one step at the time. Furthermore, 
+a parser generator could be much faster than many hand-written parser, especially a hand-written parser that was created by someone doing a compiler for the first time.
+</p>
 
-bad 
-- in practice you have to write a lot of code to deal with the generated code
-    learn parser generator 
-- get away from how grammar actually works 
-- obscure syntax 
-- hard to debug
-- not used in industry
-- user-friendly, do not produce good error messages
-- hard to understand the generated code
-- does not have any control over the code of parser generator
+<p>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; On the other hand, there are some down sides to a parser generator. For example, although it does not require a lot of code to get working, if one wish to add extra, specific rules to the grammar, it might require extra work than a
+hand-written parser. Next, if there were flaws in the parser generator used, it would be very time-consuming, since one would need to fix the parser code, if it is open-sourced, and ask the author of the parser generator to accept the changes. Therefore, it is close to impossible
+if one finds an error in the parser. Additionally, one would spend much more time reading the APIs of the parser generator than thinking about the actual parser. This takes away the educational purposes of writing a compiler. Even learning the parser generator does not mean that
+such skills will be widely used in industry. 
+</p>
 
-recursive:
-good
-- easier to debug
-- add appropricate error messages.
+### Hand-written Recursive Descent:
+<p>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The parser written for this course is a a recursive descent algorithm, also known as top-down. Since one has to write this from scratch, it would be easier to debug. One could include a break point and use the tools available to step
+through each line of code and determine where the errors is. Additionally, as a parser, it is much easier to include an appropriate error message, which will make the end-product user-friendly. Lastly, by completing a compiler from scratch, it is a much better learning 
+tool.
+</p>
 
-bad
-- difficult to write 
-- may be slower 
+<p>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Although written a parser from scratch might sounds like to ideal way to complete a compiler. It has a few down-sides as well. For example, the parser is difficult to write since one has to understand the how the parser works before
+writing it. Additionally, it might be hard to get started since the compiler needs the other infrastructures to even run. 
+</p>
 
-- used bottom up parser
-
--- recursive natural of grammar
+### Conclusion:
+<p>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Overall, to have a better learning experience, the hand-written parser is chosen for this course. Although it might be slower than the parser generator, speed of the parser is not one of the objectives for this course. Additionally, 
+the professor has given us a lot of the infrastructure code needed to run the compiler within everything finished. Furthermore, the professor gave us a few example and hints about how to complete the parser. Thus, all the negative sides of a hand-written parser has been comprised.
+On the other hand, writing a parser from scratch will allow one to learn the fundamental of a parser. Additionally, one can learn something that could be used within the industry. In conclusion, there are just more benefits associated with a hand-written parser and that has 
+been chosen for this course. 
+</p>
 
 # Section 7: Software development life cycle model
+
+### Introduction:
+<p>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; In this project, a test-driven development cycle is used. The cycle consist of adding a test, running all the test, write some code to pass the test, and continue the process. The TDD tries to make everything
+as simple as they can be while maintaining all the features. Regarding this project, it is a little different, most of the tests were provided to us by the professor. Given each checkpoint, some code is written to make sure these tests pass. However,
+the full test-driven development was not used since the process never repeated. 
+</p>
+
+### Pros:
+<p>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  Within the course, TDD is one of the easier models that could be implemented in the course. To communicate effectively, a development model that has clear checkpoints should be used. Additionally, the model should be simple,
+easy to test and implement. Therefore, all the above criteria met the TDD model. Furthermore, the TDD model will make the grading portion easier. For the students, the TDD model made things clear regarding to what need to be implemented and what needs to be completed
+to make everything work. Following the checkpoints and grammar will ensure, on the big scale, that the compiler works. 
+</p>
+
+### Cons:
+<p>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; On the other hand, there were a few down-sides to the TDD. For example, the project has been a semester-long project, which means what has been completed might affect the later checkpoints. In one occasion, the way the parser parsed 
+expression was completed passed the test; however, it had more problems during the next phase when parsing the statement. This means the tests did not cover all possibilities. Additionally, the whole process of TDD was not implemented since the students were not asked to 
+include more tests. The tests were set and even if additional problems were discovered, no other tests will be included on the individual basis. 
+</p>
+
+### Conclusion:
+<p>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Although there were a few cons associated with using the TDD in this course, the pros are much beneficial. As time progresses, the professor will include some tests as he sees fit. For the first time using the model in this course,
+the flaws are fairly small. It is a great experience to learn about a simple development model like TDD.
+</p>
 
 Describe the model that you used to develop your capstone project. How did this model help and/or hinder your team?
 
